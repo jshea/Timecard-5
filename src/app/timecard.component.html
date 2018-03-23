@@ -1,0 +1,47 @@
+<mat-sidenav-container class="tc-sidenav-container">
+
+  <mat-sidenav #sidenav class="tc-sidenav mat-elevation-z10"
+               [opened]="!isScreenSmall()"
+               [mode]="isScreenSmall() ? 'over' : 'side'">
+
+    <mat-toolbar color="primary">
+      Menu
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-list-item (click)="onListItemClick('timecard')">Timecard</mat-list-item>
+      <mat-list-item (click)="onListItemClick('allocations')">Allocations</mat-list-item>
+      <mat-list-item (click)="onListItemClick('accrual')">Accruals</mat-list-item>
+      <mat-list-item (click)="onListItemClick('wam')">WAMs</mat-list-item>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <div class="tc-sidenav-content">
+    <tc-toolbar (toggleSidenav)="sidenav.toggle()"></tc-toolbar>
+
+    <div class="wrapper">
+      <tc-timecard-input *ngIf="feature === 'timecard'"
+        [timecard]="timecard">
+      </tc-timecard-input>
+
+      <tc-allocation *ngIf="feature === 'allocations'"
+        [allocation]="timecard.allocation">
+      </tc-allocation>
+
+      <tc-accrual *ngIf="feature === 'accrual'"
+        [accrual]="timecard.accrual">
+      </tc-accrual>
+
+      <tc-wam *ngIf="feature === 'wam'"
+      [wam]="timecard.wam">
+      </tc-wam>
+
+      <tc-accrual *ngIf="feature == 'accruals'"
+        [weekEndDate]="timecard.weekEndDate"
+        [accrual]="timecard.accrual">
+      </tc-accrual>
+    </div>
+  </div>
+
+</mat-sidenav-container>
