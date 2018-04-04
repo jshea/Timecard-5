@@ -21,7 +21,7 @@
         <mat-tab label="All">
           <tc-allocation [allocation]="timecard.allocation"></tc-allocation>
           <tc-accrual [accrual]="timecard.accrual"></tc-accrual>
-          <tc-wam [wam]="timecard.wam"></tc-wam>
+          <tc-wam [wams]="wams"></tc-wam>
         </mat-tab>
 
         <mat-tab label="Allocations">
@@ -33,7 +33,7 @@
         </mat-tab>
 
         <mat-tab label="WAM">
-          <tc-wam [wam]="timecard.wam"></tc-wam>
+          <tc-wam [wams]="wams"></tc-wam>
         </mat-tab>
 
       </mat-tab-group>

@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 
 import { UserService } from '../../services/user.service';
 import { Timecard } from '../../models/timecard';
+import { WAM } from '../../models/wam';
 
 @Component({
   selector:    'tc-timecard-input',
@@ -12,6 +13,7 @@ import { Timecard } from '../../models/timecard';
 })
 export class TimecardInputComponent implements OnInit {
   @Input() timecard: Timecard;
+  @Input() wams: WAM[];
 
   public dataSource: MatTableDataSource<Timecard>;
 

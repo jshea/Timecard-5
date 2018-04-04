@@ -9,7 +9,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MaterialModule } from './shared/material.module';
 
+// Services
 import { UserService } from './services/user.service';
+
+// Pipes
+import { TcDatePipe } from './shared/pipes/tc-date.pipe';
+
+// Components
 import { TimecardComponent } from './timecard.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TimecardInputComponent } from './components/timecard-input/timecard-input.component';
@@ -44,6 +50,7 @@ const routes: Routes = [
     UserService
   ],
   declarations: [
+    TcDatePipe,
     TimecardComponent,
     ToolbarComponent,
     TimecardInputComponent,

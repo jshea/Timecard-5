@@ -22,7 +22,8 @@
 
     <div class="wrapper">
       <tc-timecard-input *ngIf="feature === 'timecard'"
-        [timecard]="timecard">
+        [timecard]="timecard"
+        [wams]="wams">
       </tc-timecard-input>
 
       <tc-allocation *ngIf="feature === 'allocations'"
@@ -34,7 +35,7 @@
       </tc-accrual>
 
       <tc-wam *ngIf="feature === 'wam'"
-      [wam]="timecard.wam">
+        [wams]="wams">
       </tc-wam>
 
       <tc-accrual *ngIf="feature == 'accruals'"

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
+import * as moment from 'moment';
+
 import { WAM } from '../../models/wam';
 
 @Component({
@@ -10,7 +12,7 @@ import { WAM } from '../../models/wam';
 })
 export class WamComponent implements OnInit, AfterViewInit {
 
-  @Input() wam: WAM[];
+  @Input() wams: WAM[];
 
   public displayedColumns = ['project', 'projectName', 'task', 'taskName', 'from', 'to'];
   public dataSource: MatTableDataSource<WAM>;
@@ -21,7 +23,7 @@ export class WamComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<WAM>(this.wam);
+    this.dataSource = new MatTableDataSource<WAM>(this.wams);
   }
 
   ngAfterViewInit() {

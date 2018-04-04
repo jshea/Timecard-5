@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from './models/user';
 import { UserService } from './services/user.service';
 import { Timecard } from './models/timecard';
+import { WAM } from './models/wam';
 
 const SMALL_WIDTH_BREAKPOINT = 720;
 
@@ -19,6 +20,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 export class TimecardComponent implements OnInit {
 
   public timecard: Timecard = null;
+  public wams: WAM[] = null;
   public feature: string;
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
@@ -32,7 +34,9 @@ export class TimecardComponent implements OnInit {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
   ngOnInit() {
-    this.timecard = this.userService.getTimecard();   // Load up our data
+    // Load up our data
+    this.timecard = this.userService.getTimecard();
+    this.wams = this.userService.getWams();
     this.feature = 'timecard';                        // Default to timecard display
 
     // Initialize sidenav as required

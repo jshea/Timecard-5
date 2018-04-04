@@ -4,24 +4,25 @@ import { Leave } from './leave';
 import { WAM } from './wam';
 
 export class Timecard {
-    userName:    string;
-    weekEndDate: string;
-    status:      string;
+  userId:    string;
+  userName:    string;
+  weekEndDate: string;
+  status:      string;
 
-    accrual:     Accrual;
-    allocation:  Allocation[] = [];
-    wam:         WAM[] = [];
+  accrual:     Accrual;
+  allocation:  Allocation[] = [];
+  wam:         WAM[] = [];
 
-  constructor(userName: string, weekEndDate: string, status: string,
+  constructor(userId: string, userName: string,
+              weekEndDate: string, status: string,
               accrual: Accrual,
               alloc: Allocation[],
-              leave: Leave[],
-              wam:   WAM[]) {
+              leave: Leave[]) {
+    this.userId = userId;
     this.userName = userName;
     this.weekEndDate = weekEndDate;
     this.status = status;
     this.accrual = accrual;
     this.allocation = alloc;
-    this.wam = wam;
   }
 }
