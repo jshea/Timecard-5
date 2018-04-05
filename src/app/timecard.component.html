@@ -43,6 +43,14 @@
         [accrual]="timecard.accrual">
       </tc-accrual>
     </div>
+
+    Demo that Firebase integration is working
+    <ul>
+      <li class="text" *ngFor="let wam of wamsFS | async">
+        {{wam.project}} - {{wam.task}}
+      </li>
+    </ul>
+
   </div>
 
 </mat-sidenav-container>

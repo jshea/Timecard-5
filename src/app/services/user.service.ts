@@ -1,39 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { Timecard } from '../models/timecard';
 import { Allocation } from '../models/allocation';
 import { Leave } from '../models/leave';
-import { WAM } from '../models/wam';
 import { Accrual } from '../models/accrual';
+import { WAM } from '../models/wam';
+import { Observable } from '@firebase/util';
 
 @Injectable()
 export class UserService {
 
   private timecards: Timecard[] = [];
   private wams: WAM[] = [];
+  private wamsCollection: AngularFirestoreCollection<WAM>;
+  private wamsAFS: Observable<WAM[]>;
 
+  constructor(private afs: AngularFirestore) {
 
-  constructor(private http: HttpClient) {
     this.timecards = [
-      new Timecard(
-        'fflintstone',
-        'Fred Flintstone',
-        '2018-04-01',
-        'Incomplete',
+      new Timecard('fflintstone', 'Fred Flintstone', '2018-04-01', 'Incomplete',
         new Accrual(260.3, 456.7, 10),
-        [new Allocation('123456', 'A fun task', 10)],
-        [
-          new Leave('Vacation', 285.6),
-          new Leave('Sick', 593),
-          new Leave('Personal', 8)
-        ],
+        [ new Allocation('123456', 'A fun task', 10) ],
+        [ new Leave('Vacation', 285.6), new Leave('Sick', 593), new Leave('Personal', 8) ],
       ),
-      new Timecard(
-        'fflintstone',
-        'Fred Flintstone',
-        '2018-04-08',
-        'Incomplete',
+      new Timecard('fflintstone', 'Fred Flintstone', '2018-04-08', 'Incomplete',
         new Accrual(260.3, 456.7, 10),
         [],
         []
@@ -55,13 +47,27 @@ export class UserService {
    }
 
 
-   public getTimecard(): Timecard {
+  public getTimecard(): Timecard {
     return this.timecards[0];
   }
 
 
   public getWams(): WAM[] {
     return this.wams;
+  }
+
+  public loadWams(): boolean {
+    this.wams.forEach(
+      (wam: WAM) => {
+        // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#example-of-persisting-a-document-id
+        // let id = this.afs.createId();
+        // this.wamsCollection.doc(id).set(wam);
+
+        // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#adding-documents-to-a-collection
+        this.wamsCollection.add(wam);
+      }
+    );
+    return true;
   }
 
 }

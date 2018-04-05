@@ -9,6 +9,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MaterialModule } from './shared/material.module';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
+
 // Services
 import { UserService } from './services/user.service';
 
@@ -44,7 +48,9 @@ const routes: Routes = [
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [
     UserService

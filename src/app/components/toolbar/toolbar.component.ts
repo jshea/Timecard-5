@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialog, MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
+import { UserService } from '../../services/user.service';
 import { NewXxxDialogComponent } from '../new-xxx-dialog/new-xxx-dialog.component';
 
 @Component({
@@ -15,11 +16,12 @@ export class ToolbarComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private snackBar: MatSnackBar,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
 
   ngOnInit() { }
 
-  openAddXxxDialog(): void {
+  public openAddXxxDialog(): void {
     const dialogRef = this.dialog.open(NewXxxDialogComponent, { width: '450px' });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -34,7 +36,11 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
+  public loadWams(): void {
+    this.userService.loadWams();
+  }
+
+  private openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: 5000,
     });

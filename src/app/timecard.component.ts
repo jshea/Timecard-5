@@ -1,11 +1,14 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
 import { MatSidenav } from '@angular/material';
 import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+
+import { AngularFirestore } from 'angularfire2/firestore';
+
 import { Observable } from 'rxjs/Observable';
 
-import { User } from './models/user';
 import { UserService } from './services/user.service';
 import { Timecard } from './models/timecard';
 import { WAM } from './models/wam';
@@ -18,6 +21,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
   styleUrls:  ['./timecard.component.css']
 })
 export class TimecardComponent implements OnInit {
+  public wamsFS: Observable<any[]>;
 
   public timecard: Timecard = null;
   public wams: WAM[] = null;
@@ -25,10 +29,11 @@ export class TimecardComponent implements OnInit {
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
 
-  constructor(zone: NgZone,
+  constructor(private zone: NgZone,
+              private afs: AngularFirestore,
               private userService: UserService) {
-
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
+    this.wamsFS = afs.collection('wams').valueChanges();
   }
 
   @ViewChild(MatSidenav) sidenav: MatSidenav;
